@@ -22,7 +22,7 @@ use yii\web\View;
                 </div>
             <?php endforeach; ?>
             <small>
-                <?= Html::a("Add reaction", ['reaction', 'id' => $model->id]) ?>
+                <?= Html::a("Добавить реакцию", ['reaction', 'id' => $model->id]) ?>
             </small>
         </div>
         <p>
