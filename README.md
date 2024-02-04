@@ -27,5 +27,6 @@
     php yii migrate
 
 Данные для авторизации — можно посмотреть в файле: `config/users.php`.
+Вам необходимы данные от пользователя `user`.
 
-Адрес авторизации: `http://localhost:8001/site/login`
+Адрес веб-сайта: `http://localhost:8001/site/login`
