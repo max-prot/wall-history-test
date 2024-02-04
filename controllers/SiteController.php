@@ -87,12 +87,17 @@ class SiteController extends Controller
         $post = $this->findModel($id);
         $user = Yii::$app->user->identity;
 
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            $user->withdrawBalance($form->calculateReactionCost());
-            $post->addReaction($form->reaction, $form->quantity);
-            $post->save(false);
-            Yii::$app->session->setFlash('success', 'Добавлена реакция для поста №' . $post->id);
-            return $this->redirect(['index']);
+        try {
+            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+                $user->withdrawBalance($form->calculateReactionCost());
+                $post->addReaction($form->reaction, $form->quantity);
+                $post->save(false);
+                Yii::$app->session->setFlash('success', 'Добавлена реакция для поста №' . $post->id);
+                return $this->redirect(['index']);
+            }
+        } catch (\DomainException $exception) {
+            Yii::$app->errorHandler->logException($exception);
+            Yii::$app->session->setFlash('danger', $exception->getMessage());
         }
 
         return $this->render('reaction', [
